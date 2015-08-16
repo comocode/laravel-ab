@@ -16,7 +16,7 @@ class AbMigrate extends Command
      *
      * @var string
      */
-    protected $description = 'migrates Laravel-Ab requried tables';
+    protected $description = 'migrates Laravel-Ab required tables';
 
     /**
      * Create a new command instance.

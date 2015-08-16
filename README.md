@@ -37,10 +37,10 @@ and see the following output:
     
     ab:rollback         removes Laravel-Ab tables
     
-    ab:report <experiment>  outputs statistics on your current experiments or the one specified in the command
+    ab:report <experiment>  --list outputs statistics on your current experiments or the one specified in the command
     
     
-you can run ab:migrate to create the requried tables, and ab:rollback to remove them anytime you wish
+you can run ab:migrate to create the required tables, and ab:rollback to remove them anytime you wish
 to view your experiment results, use the export command to see statistics
 
 
