@@ -4,6 +4,7 @@ namespace ComoCode\LaravelAb;
 
 use ComoCode\LaravelAb\App\Ab;
 use ComoCode\LaravelAb\App\Console\Commands\AbMigrate;
+use ComoCode\LaravelAb\App\Console\Commands\AbReport;
 use ComoCode\LaravelAb\App\Console\Commands\AbRollback;
 use ComoCode\LaravelAb\App\Http\Middleware\LaravelAbMiddleware;
 use Illuminate\Database\Migrations\Migrator;
@@ -47,8 +48,13 @@ class LaravelAbServiceProvider extends ServiceProvider
             return new AbRollback();
         });
 
+        $this->app->singleton('command.ab.report', function($app) {
+            return new AbReport();
+        });
+
         $this->commands('command.ab.migrate');
         $this->commands('command.ab.rollback');
+        $this->commands('command.ab.report');
 
     }
     /**
@@ -61,6 +67,7 @@ class LaravelAbServiceProvider extends ServiceProvider
         return [
             'command.ab.migrate',
             'command.ab.rollback',
+            'command.ab.report',
         ];
     }
 

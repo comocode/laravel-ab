@@ -37,7 +37,7 @@ and see the following output:
     
     ab:rollback         removes Laravel-Ab tables
     
-    ab:experiments <experiment>  outputs statistics on your current experiments or the one specified in the command
+    ab:report <experiment>  outputs statistics on your current experiments or the one specified in the command
     
     
 you can run ab:migrate to create the requried tables, and ab:rollback to remove them anytime you wish
@@ -75,9 +75,10 @@ including nested experiments with a very easy to use blade interface.
 ```
 to reach an event simply do
 ```
-  @goal('NestedGoal')  in the targed page or by utilizing app::make('Ab')->goal('NestedGoal') anywhere in your application execution. 
+  @goal('NestedGoal')   
 
 ```
+in the targed page or by utilizing app()->make('Ab')->goal('NestedGoal') anywhere in your application execution.
 
 
 ### Weighted Conditions 
