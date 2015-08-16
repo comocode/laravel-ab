@@ -1,0 +1,22 @@
+{
+    "name": "comocode/laravel-ab",
+    "description": "Blade level AB tests for Laravel 5",
+    "keywords": ["laravel", "ab", "ab tests"],
+    "type": "composer-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rulian Estivalletti",
+            "email": "rulian.estivalletti@gmail.com"
+        }
+    ],
+    "autoload": {
+        "classmap":[
+            "src/migrations/create-ab-tables.php"
+        ],
+        "psr-4": {
+            "ComoCode\\LaravelAb\\": "src"
+        }
+    },
+    "require": {}
+}
