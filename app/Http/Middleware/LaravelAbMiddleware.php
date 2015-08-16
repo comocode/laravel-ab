@@ -16,11 +16,12 @@ class LaravelAbMiddleware
      */
     public function handle($request, Closure $next)
     {
+
         $response = $next($request);
 
-        Ab::saveSession();
+        $cookie = Ab::saveSession();
 
-        return $response;
+        return $response->withCookie(cookie()->forever('laravel_ab_user', $cookie));
 
     }
 }

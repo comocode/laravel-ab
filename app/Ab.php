@@ -33,20 +33,36 @@ class Ab {
     protected $conditions = [];
     protected $fired;
     protected $goal;
+    /**
+     * @var Request
+     */
+    private $request;
 
     /**
      * Create a instance for a user session if there isnt once.
      * Load previous event -> fire pairings for this session if exist
      */
-    public function __construct(){
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+        $this->ensureUser(false);
 
-        if (!Session::get('ab_user')){
-            Session::set('ab_user',md5(microtime().rand(100000,999999).Request::getClientIp()));
+    }
+
+    public function ensureUser($forceSession = false){
+
+
+
+        if (!Session::get('laravel_ab_user') || $forceSession){
+
+            $laravel_ab_id = $this->request->cookie('laravel_ab_user', uniqid().$this->request->getClientIp() );
+            Session::set('laravel_ab_user',$laravel_ab_id);
+
         }
 
         if (empty(self::$session)){
             self::$session = Instance::firstOrCreate([
-                'instance'=>Session::get("ab_user"),
+                'instance'=>Session::get("laravel_ab_user"),
                 'identifier'=>Request::getClientIp()
             ]);
         }
@@ -95,6 +111,8 @@ class Ab {
                 self::$session->events()->save($event);
             }
         }
+
+        return Session::get("laravel_ab_user");
     }
 
 
@@ -221,7 +239,7 @@ class Ab {
      * Simple method for resetting the session variable for development purposes
      */
     public static function forceReset(){
-        Session::set('ab_user',md5(microtime().rand(100000,999999).Request::getClientIp()));
+        $this->ensureUser(true);
     }
 
     public function toArray() {
