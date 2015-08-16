@@ -1,7 +1,7 @@
 <?php namespace ComoCode\LaravelAb\App;
 
 
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use ComoCode\LaravelAb\App\Experiments;
 use ComoCode\LaravelAb\App\Instance;
@@ -63,7 +63,7 @@ class Ab {
         if (empty(self::$session)){
             self::$session = Instance::firstOrCreate([
                 'instance'=>Session::get("laravel_ab_user"),
-                'identifier'=>Request::getClientIp()
+                'identifier'=>$this->request->getClientIp()
             ]);
         }
 
@@ -142,14 +142,24 @@ class Ab {
 
         ob_end_clean();
 
+        $conditions = [];
+        foreach($this->conditions as $key=>$condition){
+            if (preg_match('/\[(\d+)\]/',$key,$matches)){
+                foreach(range(1,$matches[1]) as $index){
+                    $conditions[] = $key;
+                }
+            }
+        }
+        if (empty($conditions)){
+            $conditions = array_keys($this->conditions);
+        }
         /// has the user fired this particular experiment yet?
         if ($fired = $this->hasExperiment($this->name)){
             $this->fired = $fired;
         }
         else {
-            $keys = array_keys($this->conditions);
-            shuffle($keys);
-            $this->fired = current($keys);
+            shuffle($conditions);
+            $this->fired = current($conditions);
         }
 
         return $this->conditions[$this->fired];
@@ -238,7 +248,7 @@ class Ab {
     /**
      * Simple method for resetting the session variable for development purposes
      */
-    public static function forceReset(){
+    public function forceReset(){
         $this->ensureUser(true);
     }
 

@@ -80,6 +80,24 @@ to reach an event simply do
 ```
 
 
+### Weighted Conditions 
+
+if you would like to throttle the decision towards specific conditions you can add a declaration to control the distribution. 
+For example
+```php
+ @ab('My Nested Experiment') /// an experiment nested within the top experiment
+    @condition('NestedConditionOne [2]')
+        <h3>Some tag</h3>
+    @condition('NestedConditionTwo [1]') /// some values
+        <h3>Some other tag</h3>
+    @condition('NestedConditionThree [1]')
+        <h3>Another tag</h3>
+@track('NestedGoal') /// the goal to track this experiment to
+```
+
+Will randomly select a result but will calculate the odd of the result based on the sum of the weights (1 + 1 + 2 = 4)  vs its specific weight 2/4, 1/4 1/4.
+
+
 Results
 ==========
 Once an experiment is executed, it will remember the options provided to the user so experiment choice selections do not change upon revisiting your project. 

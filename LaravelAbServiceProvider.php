@@ -84,7 +84,6 @@ class LaravelAbServiceProvider extends ServiceProvider
 
                         throw new \Exception("Experiment with not name not allowed");
                     }
-
                     $copy=preg_replace('/@ab\(.([^\)]+).\)/i',"<?php \${$instance} = App::make('Ab')->experiment('{$experiment_name}'); ?>", $block);
 
                     $copy=preg_replace('/@condition\(([^\)]+)\)/i',"<?php \${$instance}->condition($1); ?>", $copy);
