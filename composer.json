@@ -11,9 +11,6 @@
         }
     ],
     "autoload": {
-        "classmap":[
-            "src/migrations/create-ab-tables.php"
-        ],
         "psr-4": {
             "ComoCode\\LaravelAb\\": "src"
         }
