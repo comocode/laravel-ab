@@ -2,7 +2,7 @@
     "name": "comocode/laravel-ab",
     "description": "Blade level AB tests for Laravel 5",
     "keywords": ["laravel", "ab", "ab tests"],
-    "type": "composer-plugin",
+    "type": "library",
     "license": "MIT",
     "authors": [
         {

@@ -109,3 +109,8 @@ Contributing
 ==========
 Please feel free to contribute as A/B testing is an important part for any organization. 
 
+
+TODO
+==========
+Add queable job to send reports on cron
+Add HTML charts
