@@ -36,7 +36,7 @@ class AbMigrate extends Command
     public function handle()
     {
         $this->call('migrate', [
-            '--path' => str_replace(base_path(),'',realpath(__DIR__.'/../../../migrations/'))
+            '--path' => str_replace(base_path(),'',realpath(__DIR__.'/../../../../migrations/'))
         ]);
 
         $this->info("AB tables created successfully");

@@ -30,7 +30,7 @@ class AbRollback extends Command
     public function __construct()
     {
         parent::__construct();
-        include_once realpath(__DIR__.'/../../../migrations/2015_08_15_000001_create_ab_tables.php');
+        include_once realpath(__DIR__.'/../../../../migrations/2015_08_15_000001_create_ab_tables.php');
 
     }
 
