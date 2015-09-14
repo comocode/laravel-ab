@@ -23,8 +23,8 @@ class CreateAbTables extends Migration {
         Schema::create('ab_events', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->string('instance_id');
-            $table->string('experiments_id');
+            $table->string('instance_id')->nullable();
+            $table->string('experiments_id')->nullable();
             $table->string('name');
             $table->string('value');
             $table->timestamps();
@@ -42,7 +42,7 @@ class CreateAbTables extends Migration {
         Schema::create('ab_goal', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->string('instance_id');
+            $table->string('instance_id')->nullable();
             $table->string('goal');
             $table->string('value')->nullable();
             $table->timestamps();
