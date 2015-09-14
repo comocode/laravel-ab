@@ -1,0 +1,22 @@
+language: php
+
+php:
+  - 5.6
+  - 5.5
+  - hhvm
+
+before_install:
+  - composer self-update
+  - composer create-project laravel/laravel
+  - cd ./laravel
+  - composer require comocode/laravel-ab dev-travis
+  - composer update
+  - touch storage/database.sqlite
+  - cp ./vendor/comocode/laravel-ab/tests/source/laravel/app.php ./config/app.php
+  - cp ./vendor/comocode/laravel-ab/tests/source/laravel/database.php ./config/database.php
+  - cp ./vendor/comocode/laravel-ab/tests/source/laravel/routes.php ./app/Http/routes.php
+  - php artisan ab:migrate
+  - nohup php artistan serve &
+
+script: "phpunit ./vendor/comocode/laravel-ab/tests/AbTests.php"
+
