@@ -8,5 +8,10 @@ before_install:
   - composer create-project laravel/laravel
   - cd ./laravel
   - composer require comocode/laravel-ab dev-master
-  - touch storeage/database.sqlite
+  - composer update
+  - touch storage/database.sqlite
+  - cp .vendor/comocode/laravel-ab/tests/source/laravel/app.php ./config/app.php
+  - cd ./vendor/comocode/laravel-ab
+
+  script: "phpunit"
 

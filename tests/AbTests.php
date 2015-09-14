@@ -13,7 +13,6 @@ class ExampleTest extends TestCase
      */
     public function testBasicExample()
     {
-        $this->visit('/')
-             ->see('Laravel 5');
+        $view = Blade::compile("hello there {{$name}}", array('name' => 'John Doe'));
     }
 }
