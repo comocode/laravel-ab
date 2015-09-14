@@ -1,21 +1,12 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+\View::addNamespace('AB', base_path().'/vendor/comocode/laravel-ab/tests/source/views/');
+
+
+Route::get('/weight', function () {
+    return \View::make('AB::weight');
+});
 
 Route::get('/', function () {
-    return view('home');
+    return \View::make('AB::nested');
 });
-
-Route::get('/destaque', function () {
-    return view('livros.show');
-});
-

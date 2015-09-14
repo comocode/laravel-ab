@@ -1,12 +1,12 @@
 <html>
 	<body>
-		@experiment('test-1')
+		@ab('test-1')
 			@condition('option-1-1')
 				Test-1-Option-1
 			@condition('option-1-2')
 				Test-1-Option-2	
 			@condition('option-1-3')	
-				@experiment('test-2')
+				@ab('test-2')
 					@condition('option-2-1')
 					Test-2-Option-1
 					@condition('option-2-2')
