@@ -17,7 +17,6 @@ before_install:
   - cp ./vendor/comocode/laravel-ab/tests/source/laravel/routes.php ./app/Http/routes.php
   - php artisan ab:migrate
   - nohup php artistan serve &
-  - cd ./vendor/comocode/laravel-ab
 
-script: "phpunit"
+script: "phpunit ./vendor/comocode/laravel-ab/tests/AbTests.php"
 
