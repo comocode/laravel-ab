@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/comocode/laravel-ab.png)](https://travis-ci.org/comocode/laravel-ab)
+
 laravel-ab
 ==========
 
