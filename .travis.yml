@@ -9,7 +9,7 @@ before_install:
   - composer self-update
   - composer create-project laravel/laravel
   - cd ./laravel
-  - composer require comocode/laravel-ab dev-travis
+  - composer require comocode/laravel-ab dev-master
   - composer update
   - touch storage/database.sqlite
   - cp ./vendor/comocode/laravel-ab/tests/source/laravel/app.php ./config/app.php
