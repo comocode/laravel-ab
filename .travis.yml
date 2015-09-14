@@ -13,6 +13,7 @@ before_install:
   - composer update
   - touch storage/database.sqlite
   - cp ./vendor/comocode/laravel-ab/tests/source/laravel/app.php ./config/app.php
+  - cp ./vendor/comocode/laravel-ab/tests/source/laravel/database.php ./config/database.php
   - cp ./vendor/comocode/laravel-ab/tests/source/laravel/routes.php ./app/Http/routes.php
   - php artisan ab:migrate
   - $(nohup php artistan serve &)
