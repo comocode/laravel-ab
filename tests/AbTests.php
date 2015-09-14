@@ -40,8 +40,7 @@ class ExampleTest extends TestCase
         $experiment = $experiments->first();
 
         $this->assertEquals($experiments->count(),1);
-
-        $this->assertEquals($experiment->events()->count(), 2);
+        $this->assertEquals($experiment->events()->count(), 1);
 
         $this->assertEquals($goals->count(),1);
 
@@ -62,10 +61,13 @@ class ExampleTest extends TestCase
         $test2 = $test2_experiments->first();
 
         $this->assertEquals($test1_experiments->count(), 1);
-        $this->assertEquals($test1->events()->count(), 3);
+        $this->assertEquals($test1->events()->count(), 1);
 
         $this->assertEquals($test2_experiments->count(), 1);
-        $this->assertEquals($test2->events()->count(), 2);
+        $this->assertEquals($test2->events()->count(), 1);
+
+
+
     }
 
 
