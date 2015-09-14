@@ -2,7 +2,8 @@ language: php
 
 php:
   - 5.6
-
+  - 5.5
+  - hhvm
 before_install:
   - composer self-update
   - composer create-project laravel/laravel
@@ -13,5 +14,5 @@ before_install:
   - cp .vendor/comocode/laravel-ab/tests/source/laravel/app.php ./config/app.php
   - cd ./vendor/comocode/laravel-ab
 
-  script: "phpunit"
+script: "phpunit"
 
