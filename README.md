@@ -1,4 +1,8 @@
 [![Build Status](https://travis-ci.org/comocode/laravel-ab.png)](https://travis-ci.org/comocode/laravel-ab)
+[![Latest Stable Version](https://poser.pugx.org/comocode/laravel-ab/v/stable)](https://packagist.org/packages/comocode/laravel-ab)
+[![Total Downloads](https://poser.pugx.org/comocode/laravel-ab/downloads)](https://packagist.org/packages/comocode/laravel-ab)
+[![Latest Unstable Version](https://poser.pugx.org/comocode/laravel-ab/v/unstable)](https://packagist.org/packages/comocode/laravel-ab)
+[![Daily Downloads](https://poser.pugx.org/comocode/laravel-ab/d/daily)](https://packagist.org/packages/comocode/laravel-ab)
 
 laravel-ab
 ==========
