@@ -20,8 +20,10 @@ class LaravelAbMiddleware
         $response = $next($request);
 
         $cookie = Ab::saveSession();
-
-        return $response->withCookie(cookie()->forever('laravel_ab_user', $cookie));
+        if (method_exists($response, 'withCookie')){
+            return $response->withCookie(cookie()->forever('laravel_ab_user', $cookie));
+        }
+        return $response;
 
     }
 }
