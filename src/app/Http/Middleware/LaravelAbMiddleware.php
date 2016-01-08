@@ -26,4 +26,5 @@ class LaravelAbMiddleware
         return $response;
 
     }
+    
 }
