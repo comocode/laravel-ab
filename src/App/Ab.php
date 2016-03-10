@@ -52,7 +52,7 @@ class Ab {
     public function ensureUser($forceSession = false){
 
 
-        $uid = uniqid().$this->request->getClientIp();
+        $uid = md5(uniqid().$this->request->getClientIp());
         if (!Session::get(config('laravel-ab.cache_key')) || $forceSession){
 
             $laravel_ab_id = $this->request->cookie(config('laravel-ab.cache_key'), $uid);
