@@ -52,11 +52,11 @@ class Ab {
     public function ensureUser($forceSession = false){
 
 
-
+        $uid = uniqid().$this->request->getClientIp();
         if (!Session::get('laravel_ab_user') || $forceSession){
 
-            $laravel_ab_id = $this->request->cookie('laravel_ab_user', uniqid().$this->request->getClientIp() );
-            Session::set('laravel_ab_user',$laravel_ab_id);
+            $laravel_ab_id = $this->request->cookie('laravel_ab_user', $uid);
+            Session::set('laravel_ab_user',$uid);
 
         }
 
