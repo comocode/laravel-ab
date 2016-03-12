@@ -22,6 +22,17 @@ class LaravelAbServiceProvider extends ServiceProvider
      */
     private $migrator;
 
+    /**
+     * Bootstrap the application events.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->publishes([
+            __DIR__ . '/config/config.php' => config_path('laravel-ab.php'),
+        ], 'config');
+    }
 
     /**
      * Register the service provider.
@@ -30,6 +41,9 @@ class LaravelAbServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom(
+            __DIR__.'/config/config.php', 'laravel-ab'
+        );
         $this->app->make('Illuminate\Contracts\Http\Kernel')->prependMiddleware('\ComoCode\LaravelAb\App\Http\Middleware\LaravelAbMiddleware');
         $this->app->bind('Ab', 'ComoCode\LaravelAb\App\Ab');
         $this->registerCompiler();

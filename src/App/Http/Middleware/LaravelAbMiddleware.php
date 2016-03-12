@@ -21,7 +21,7 @@ class LaravelAbMiddleware
 
         $cookie = Ab::saveSession();
         if (method_exists($response, 'withCookie')){
-            return $response->withCookie(cookie()->forever('laravel_ab_user', $cookie));
+            return $response->withCookie(cookie()->forever(config('laravel-ab.cache_key'), $cookie));
         }
         return $response;
 

@@ -52,17 +52,17 @@ class Ab {
     public function ensureUser($forceSession = false){
 
 
+        $uid = md5(uniqid().$this->request->getClientIp());
+        if (!Session::get(config('laravel-ab.cache_key')) || $forceSession){
 
-        if (!Session::get('laravel_ab_user') || $forceSession){
-
-            $laravel_ab_id = $this->request->cookie('laravel_ab_user', uniqid().$this->request->getClientIp() );
-            Session::set('laravel_ab_user',$laravel_ab_id);
+            $laravel_ab_id = $this->request->cookie(config('laravel-ab.cache_key'), $uid);
+            Session::set(config('laravel-ab.cache_key'),$uid);
 
         }
 
         if (empty(self::$session)){
             self::$session = Instance::firstOrCreate([
-                'instance'=>Session::get("laravel_ab_user"),
+                'instance'=>Session::get(config('laravel-ab.cache_key')),
                 'identifier'=>$this->request->getClientIp()
             ]);
         }
@@ -112,7 +112,7 @@ class Ab {
             }
         }
 
-        return Session::get("laravel_ab_user");
+        return Session::get(config('laravel-ab.cache_key'));
     }
 
 
