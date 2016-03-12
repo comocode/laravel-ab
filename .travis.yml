@@ -7,7 +7,7 @@ php:
 
 before_install:
   - composer self-update
-  - composer create-project laravel/laravel
+  - composer create-project laravel/laravel=5.1.11
   - cd ./laravel
   - composer require comocode/laravel-ab dev-master
   - composer update
