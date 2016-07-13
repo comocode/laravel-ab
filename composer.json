@@ -11,6 +11,9 @@
         }
     ],
     "autoload": {
+        "classmap" : [
+            "tests"
+        ],
         "psr-4": {
             "ComoCode\\LaravelAb\\": "src"
         }
