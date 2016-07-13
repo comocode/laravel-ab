@@ -52,10 +52,8 @@ class Ab {
 
     public function ensureUser($forceSession = false){
 
-
-        $uid = md5(uniqid().$this->request->getClientIp());
-        if (!Session::get(config('laravel-ab.cache_key')) || $forceSession){
-
+        if (!Session::has(config('laravel-ab.cache_key')) || $forceSession){
+            $uid = md5(uniqid().$this->request->getClientIp());
             $laravel_ab_id = $this->request->cookie(config('laravel-ab.cache_key'), $uid);
             Session::set(config('laravel-ab.cache_key'),$uid);
 
@@ -63,7 +61,7 @@ class Ab {
 
         if (empty(self::$session)){
             self::$session = Instance::firstOrCreate([
-                'instance'=>Session::get("laravel_ab_user"),
+                'instance'=>Session::get(config('laravel-ab.cache_key')),
                 'identifier'=>$this->request->getClientIp(),
                 'metadata'=>$this->getMetadata()
             ]);
@@ -95,6 +93,7 @@ class Ab {
 
     public static function saveSession(){
 
+
         if (!empty(self::$instance)){
             foreach(self::$instance as $event){
 
@@ -114,7 +113,9 @@ class Ab {
             }
         }
 
-        return Session::get(config('laravel-ab.cache_key'));
+
+
+        return  Session::get(config('laravel-ab.cache_key'));
     }
 
 
@@ -203,7 +204,7 @@ class Ab {
         $reference->saveCondition($condition, ''); /// so above count fires after first pass
 
         ob_start(function($data) use($condition, $reference){
-           $reference->saveCondition($condition, $data);
+            $reference->saveCondition($condition, $data);
         });
 
     }
@@ -223,6 +224,17 @@ class Ab {
             return (array) $this->metadata_callback();
         }
         return null;
+    }
+
+    /**
+     * @param bool $forceSession
+     * @return mixed
+     *
+     * Ensuring a user session string on any call for a key to be used.
+     */
+    public static function getSession(){
+
+        return self::$session;
     }
     /**
      * @param $condition
@@ -278,8 +290,3 @@ class Ab {
     }
 
 }
-
-
-
-
-

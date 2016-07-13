@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\Compilers\BladeCompiler;
 
 use ComoCode\LaravelAb\App\Experiments;
@@ -80,14 +81,20 @@ class AbTests extends TestCase
 
     public function testMetaDataStorage()
     {
-        $meta = ['additional'=>'info'];
-        $ab = app()->make('Ab')->capture(function() use($meta) { return $meta; });
+        include('source/helper.php');
+
+        $meta = laravel_ab_meta();
+
+        Session::forget(config('laravel-ab.cache_key'));
+
+        $ab = app()->make('Ab');
         Ab::saveSession();
 
-        $instance = Instance::where(['instance'=>Ab::$session->instance])->get()->first();
+        $instance = Instance::where(['instance'=>Ab::getSession()->instance])->get()->first();
         $metadata = $instance->metadata;
         $this->assertTrue(is_array($metadata));
         $this->assertEquals($metadata, $meta);
+
 
     }
 }

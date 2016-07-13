@@ -3,7 +3,7 @@
 class Instance extends \Eloquent {
 
     protected $table = 'ab_instance';
-	protected $fillable = ['instance','metadata','identifier'];
+    protected $fillable = ['instance','metadata','identifier'];
 
     public function events(){
         return $this->hasMany('ComoCode\LaravelAb\App\Events');
@@ -14,10 +14,10 @@ class Instance extends \Eloquent {
     }
 
     public function setMetadataAttribute($value){
-        $this->attribute['metadata']=serialize($value);
+        $this->attributes['metadata']=serialize($value);
     }
 
-    public function setMetadataAttribute($value){
-        $this->attribute['metadata']=unserialize($value);
+    public function getMetadataAttribute($value){
+        return unserialize($value);
     }
 }
