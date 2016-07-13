@@ -63,7 +63,7 @@ class Ab {
             self::$session = Instance::firstOrCreate([
                 'instance'=>Session::get(config('laravel-ab.cache_key')),
                 'identifier'=>$this->request->getClientIp(),
-                'metadata'=>$this->getMetadata()
+                'metadata'=>( function_exists('laravel_ab_meta') ? call_user_func('laravel_ab_meta') : null)
             ]);
         }
 
@@ -207,23 +207,6 @@ class Ab {
             $reference->saveCondition($condition, $data);
         });
 
-    }
-
-    /**
-     * @param \Closure $closure
-     * @return $this
-     *
-     * Set a callback to execute when a condition is selected to capture any user defined information to store along with session
-     */
-    public function capture(\Closure $closure) {
-        $this->metadata_callback = $closure;
-    }
-
-    public function getMetadata(){
-        if ($this->metadata_callback instanceof \Closure){
-            return (array) $this->metadata_callback();
-        }
-        return null;
     }
 
     /**
