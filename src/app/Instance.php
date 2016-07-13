@@ -12,4 +12,12 @@ class Instance extends \Eloquent {
     public function goals(){
         return $this->hasMany('ComoCode\LaravelAb\App\Goal');
     }
+
+    public function setMetadataAttribute($value){
+        $this->attribute['metadata']=serialize($value);
+    }
+
+    public function setMetadataAttribute($value){
+        $this->attribute['metadata']=unserialize($value);
+    }
 }

@@ -33,6 +33,7 @@ class Ab {
     protected $conditions = [];
     protected $fired;
     protected $goal;
+    protected $metadata_callback;
     /**
      * @var Request
      */
@@ -62,8 +63,9 @@ class Ab {
 
         if (empty(self::$session)){
             self::$session = Instance::firstOrCreate([
-                'instance'=>Session::get(config('laravel-ab.cache_key')),
-                'identifier'=>$this->request->getClientIp()
+                'instance'=>Session::get("laravel_ab_user"),
+                'identifier'=>$this->request->getClientIp(),
+                'metadata'=>$this->getMetadata()
             ]);
         }
 
@@ -76,7 +78,7 @@ class Ab {
      * Load initial session variables to store or track
      * Such as variables you want to track being passed into the template.
      */
-    public function setup(Array $session_variables = array()){
+    public function setup(Array $session_varfiables = array()){
         foreach($session_variables as $key=>$value){
             $experiment = new self;
             $experiment->experiment($key);
@@ -206,7 +208,22 @@ class Ab {
 
     }
 
+    /**
+     * @param \Closure $closure
+     * @return $this
+     *
+     * Set a callback to execute when a condition is selected to capture any user defined information to store along with session
+     */
+    public function capture(\Closure $closure) {
+        $this->metadata_callback = $closure;
+    }
 
+    public function getMetadata(){
+        if ($this->metadata_callback instanceof \Closure){
+            return (array) $this->metadata_callback();
+        }
+        return null;
+    }
     /**
      * @param $condition
      * @param $data

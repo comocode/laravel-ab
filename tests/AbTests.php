@@ -1,17 +1,14 @@
 <?php
+require('vendor/autoload.php');
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\View\Compilers\BladeCompiler;
 
+use Illuminate\Foundation\Testing\TestCase;
 use ComoCode\LaravelAb\App\Experiments;
 use ComoCode\LaravelAb\App\Instance;
-use ComoCode\LaravelAb\App\Events;
 use ComoCode\LaravelAb\App\Goal;
 use ComoCode\LaravelAb\App\Ab;
 
-class ExampleTest extends TestCase
+class AbTests extends TestCase
 {
     /**
      * A basic functional test example.
@@ -19,9 +16,21 @@ class ExampleTest extends TestCase
      * @return void
      */
 
+    public function createApplication(){
+        $app = require __DIR__.'/../vendor/laravel/laravel/bootstrap/app.php';
+        $app->register('ComoCode\LaravelAb\LaravelAbServiceProvider');
+        $app->make('Illuminate\Contracts\Console\Kernel')->bootstrap();
+        return $app;
+    }
+
+    public function setUp()
+    {
+        parent::setUp();
+    }
+
     public function testDefaultCreation(){
 
-        $ab = app()->make('Ab');
+        $ab = $this->app->make('Ab');
         $instance = $ab->experiment('Test');
         $instance->condition('one');
         echo "condition 1";
@@ -78,4 +87,19 @@ class ExampleTest extends TestCase
             ->dontSee('DONT-SEE-THIS');
     }
 
+    public function testMetaDataStorage()
+    {
+        $meta = ['additional'=>'info'];
+        $ab = $this->app->make('Ab')->capture(function() use($meta) { return $meta; });
+        Ab::saveSession();
+
+
+        $instance = Instance::where(['instance'=>Ab::$session->instance])->get()->first();
+
+        $metadata = $instance->metadata;
+
+        $this->assertTrue(is_array($metadata));
+        $this->assertEquals($metadata, $meta);
+
+    }
 }
