@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Artisan;
 class AbMigrate extends Command
 {
 
-    protected $signature = 'ab:migrate';
+    protected $signature = 'ab:migrate
+    {--force : Bypasses prompts for confirmation}';
 
     /**
      * The console command description.
@@ -36,7 +37,8 @@ class AbMigrate extends Command
     public function handle()
     {
         $this->call('migrate', [
-            '--path' => str_replace(base_path(),'',realpath(__DIR__.'/../../../../migrations/'))
+            '--path' => str_replace(base_path(),'',realpath(__DIR__.'/../../../../migrations/')),
+            '--force'=>$this->hasOption('force') ? true : false
         ]);
 
         $this->info("AB tables created successfully");
