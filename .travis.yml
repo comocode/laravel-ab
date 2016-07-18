@@ -8,9 +8,10 @@ php:
 
 before_install:
   - bash travis.build.sh
+  - cd build/laravel
 
 script:
-  - phpunit ./build/laravel/vendor/comocode/laravel-ab/tests/AbTests.php
+  - phpunit ./vendor/comocode/laravel-ab/tests/AbTests.php
 
 after_script:
   - cd ../../
