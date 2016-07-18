@@ -37,7 +37,7 @@ class AbMigrate extends Command
     public function handle()
     {
         $this->call('migrate', [
-            '--path' => str_replace(base_path(),'',realpath(__DIR__.'/../../../../migrations/')),
+            '--path' => 'vendor/comocode/laravel-ab/migrations/',
             '--force' => $this->hasOption('force') ? true : false
         ]);
 

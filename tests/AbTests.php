@@ -1,5 +1,5 @@
 <?php
-
+require ('vendor/autoload.php');
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -12,13 +12,23 @@ use ComoCode\LaravelAb\App\Events;
 use ComoCode\LaravelAb\App\Goal;
 use ComoCode\LaravelAb\App\Ab;
 
-class AbTests extends TestCase
+class AbTests extends Illuminate\Foundation\Testing\TestCase
 {
+    public $baseUrl = 'http://localhost:8000';
+
     /**
      * A basic functional test example.
      *
      * @return void
      */
+    public function createApplication()
+    {
+        $app = require __DIR__.'/../build/laravel/bootstrap/app.php';
+
+        $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+
+        return $app;
+    }
 
     public function testDefaultCreation(){
 
@@ -86,8 +96,10 @@ class AbTests extends TestCase
         $meta = laravel_ab_meta();
 
         Session::forget(config('laravel-ab.cache_key'));
+        Session::flush();
 
         $ab = app()->make('Ab');
+        $ab->forceReset();
         Ab::saveSession();
 
         $instance = Instance::where(['instance'=>Ab::getSession()->instance])->get()->first();

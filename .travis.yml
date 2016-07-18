@@ -10,7 +10,7 @@ before_install:
   - bash travis.build.sh
 
 script:
-  - phpunit ./vendor/comocode/laravel-ab/tests/AbTests.php
+  - phpunit ./build/laravel/vendor/comocode/laravel-ab/tests/AbTests.php
 
 after_script:
   - cd ../../

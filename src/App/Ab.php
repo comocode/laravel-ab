@@ -261,6 +261,7 @@ class Ab {
      * Simple method for resetting the session variable for development purposes
      */
     public function forceReset(){
+        Ab::resetSession();
         $this->ensureUser(true);
     }
 
@@ -270,6 +271,10 @@ class Ab {
 
     public function getEvents(){
         return self::$instance;
+    }
+
+    public static function resetSession(){
+        self::$session = false;
     }
 
 }
