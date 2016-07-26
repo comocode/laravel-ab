@@ -14,7 +14,7 @@ class Instance extends \Eloquent {
     }
 
     public function setMetadataAttribute($value){
-        $this->attributes['metadata']=serialize($value);
+        $this->attributes['metadata'] = is_null($value) ? null : serialize($value);
     }
 
     public function getMetadataAttribute($value){
