@@ -13,7 +13,6 @@ use Illuminate\Support\ServiceProvider;
 
 class LaravelAbServiceProvider extends ServiceProvider
 {
-
     /**
      * @var Migrator
      */
@@ -27,7 +26,7 @@ class LaravelAbServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/config/config.php' => config_path('laravel-ab.php'),
+            __DIR__.'/config/config.php' => config_path('laravel-ab.php'),
         ], 'config');
     }
 
@@ -45,28 +44,25 @@ class LaravelAbServiceProvider extends ServiceProvider
         $this->app->bind('Ab', 'ComoCode\LaravelAb\App\Ab');
         $this->registerCompiler();
         $this->registerCommands();
-
     }
 
-    public function registerCommands(){
-
-        $this->app->singleton('command.ab.migrate', function($app) {
+    public function registerCommands()
+    {
+        $this->app->singleton('command.ab.migrate', function ($app) {
             return new AbMigrate();
         });
 
-
-        $this->app->singleton('command.ab.rollback', function($app) {
+        $this->app->singleton('command.ab.rollback', function ($app) {
             return new AbRollback();
         });
 
-        $this->app->singleton('command.ab.report', function($app) {
+        $this->app->singleton('command.ab.report', function ($app) {
             return new AbReport();
         });
 
         $this->commands('command.ab.migrate');
         $this->commands('command.ab.rollback');
         $this->commands('command.ab.report');
-
     }
     /**
      * Get the services provided by the provider.
@@ -82,40 +78,34 @@ class LaravelAbServiceProvider extends ServiceProvider
         ];
     }
 
-    public function registerCompiler(){
+    public function registerCompiler()
+    {
+        Blade::extend(function ($view, $compiler) {
 
-
-        Blade::extend(function($view, $compiler)
-        {
-
-            while (preg_match_all('/@ab(?:.(?!@track|@ab))+.@track\([^\)]+\)+/si', $view, $sections_matches)){
+            while (preg_match_all('/@ab(?:.(?!@track|@ab))+.@track\([^\)]+\)+/si', $view, $sections_matches)) {
                 $sections = current($sections_matches);
-                foreach($sections as $block){
+                foreach ($sections as $block) {
+                    $instance_id = preg_replace('/[^0-9]/', '', microtime().rand(100000, 999999));
 
-                    $instance_id=preg_replace('/[^0-9]/','',microtime().rand(100000,999999));
-
-                    if(preg_match("/@ab\(([^\)]+)\)/",$block,$match)){
-                        $experiment_name = preg_replace('/[^a-z0-9\_]/i','',$match[1]);
+                    if (preg_match("/@ab\(([^\)]+)\)/", $block, $match)) {
+                        $experiment_name = preg_replace('/[^a-z0-9\_]/i', '', $match[1]);
                         $instance = $experiment_name.'_'.$instance_id;
+                    } else {
+                        throw new \Exception('Experiment with not name not allowed');
                     }
-                    else {
+                    $copy = preg_replace('/@ab\(.([^\)]+).\)/i', "<?php \${$instance} = App::make('Ab')->experiment('{$experiment_name}'); ?>", $block);
 
-                        throw new \Exception("Experiment with not name not allowed");
-                    }
-                    $copy=preg_replace('/@ab\(.([^\)]+).\)/i',"<?php \${$instance} = App::make('Ab')->experiment('{$experiment_name}'); ?>", $block);
+                    $copy = preg_replace('/@condition\(([^\)]+)\)/i', "<?php \${$instance}->condition($1); ?>", $copy);
 
-                    $copy=preg_replace('/@condition\(([^\)]+)\)/i',"<?php \${$instance}->condition($1); ?>", $copy);
+                    $copy = preg_replace('/@track\(([^\)]+)\)/i', "<?php echo \${$instance}->track($1); ?>", $copy);
 
-                    $copy=preg_replace('/@track\(([^\)]+)\)/i',"<?php echo \${$instance}->track($1); ?>", $copy);
-
-                    $view = str_replace($block,$copy,$view);
+                    $view = str_replace($block, $copy, $view);
                 }
             }
 
-            $view=preg_replace('/@goal\(([^\)]+)\)/i',"<?php App::make('Ab')->goal($1); ?>",$view);
+            $view = preg_replace('/@goal\(([^\)]+)\)/i', "<?php App::make('Ab')->goal($1); ?>", $view);
 
             return $view;
         });
-
     }
 }

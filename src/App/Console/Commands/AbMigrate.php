@@ -6,7 +6,6 @@ use Illuminate\Console\Command;
 
 class AbMigrate extends Command
 {
-
     protected $signature = 'ab:migrate
     {--force : Bypasses prompt for user confirmation}';
 
@@ -36,10 +35,9 @@ class AbMigrate extends Command
     {
         $this->call('migrate', [
             '--path' => 'vendor/comocode/laravel-ab/migrations/',
-            '--force' => $this->hasOption('force') ? true : false
+            '--force' => $this->hasOption('force') ? true : false,
         ]);
 
-        $this->info("AB tables created successfully");
-
+        $this->info('AB tables created successfully');
     }
 }

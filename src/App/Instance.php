@@ -1,23 +1,29 @@
-<?php namespace ComoCode\LaravelAb\App;
+<?php
 
-class Instance extends \Eloquent {
+namespace ComoCode\LaravelAb\App;
 
+class Instance extends \Eloquent
+{
     protected $table = 'ab_instance';
-    protected $fillable = ['instance','metadata','identifier'];
+    protected $fillable = ['instance', 'metadata', 'identifier'];
 
-    public function events(){
+    public function events()
+    {
         return $this->hasMany('ComoCode\LaravelAb\App\Events');
     }
 
-    public function goals(){
+    public function goals()
+    {
         return $this->hasMany('ComoCode\LaravelAb\App\Goal');
     }
 
-    public function setMetadataAttribute($value){
+    public function setMetadataAttribute($value)
+    {
         $this->attributes['metadata'] = is_null($value) ? null : serialize($value);
     }
 
-    public function getMetadataAttribute($value){
+    public function getMetadataAttribute($value)
+    {
         return unserialize($value);
     }
 }

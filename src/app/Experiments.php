@@ -1,11 +1,14 @@
-<?php namespace ComoCode\LaravelAb\App;
+<?php
 
-class Experiments extends \Eloquent {
+namespace ComoCode\LaravelAb\App;
 
+class Experiments extends \Eloquent
+{
     protected $table = 'ab_experiments';
-	protected $fillable = ['experiment','goal'];
+    protected $fillable = ['experiment', 'goal'];
 
-    public function events(){
+    public function events()
+    {
         return $this->hasMany('ComoCode\LaravelAb\App\Events');
     }
 
