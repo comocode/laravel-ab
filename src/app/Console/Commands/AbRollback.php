@@ -4,7 +4,6 @@ namespace ComoCode\LaravelAb\App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Database\Migrations\Migrator;
-use Illuminate\Support\Facades\Artisan;
 
 class AbRollback extends Command
 {

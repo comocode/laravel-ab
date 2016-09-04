@@ -3,8 +3,6 @@
 namespace ComoCode\LaravelAb\App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
-
 
 class AbMigrate extends Command
 {

@@ -6,12 +6,9 @@ use ComoCode\LaravelAb\App\Ab;
 use ComoCode\LaravelAb\App\Console\Commands\AbMigrate;
 use ComoCode\LaravelAb\App\Console\Commands\AbReport;
 use ComoCode\LaravelAb\App\Console\Commands\AbRollback;
-use ComoCode\LaravelAb\App\Http\Middleware\LaravelAbMiddleware;
 use Illuminate\Database\Migrations\Migrator;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class LaravelAbServiceProvider extends ServiceProvider

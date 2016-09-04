@@ -3,11 +3,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use ComoCode\LaravelAb\App\Experiments;
-use ComoCode\LaravelAb\App\Instance;
-use ComoCode\LaravelAb\App\Events;
-use ComoCode\LaravelAb\App\Goal;
-
 class Ab {
 
     /**
