@@ -3,12 +3,9 @@
 namespace ComoCode\LaravelAb\App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
-
 
 class AbMigrate extends Command
 {
-
     protected $signature = 'ab:migrate
     {--force : Bypasses prompt for user confirmation}';
 
@@ -21,8 +18,6 @@ class AbMigrate extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -38,10 +33,9 @@ class AbMigrate extends Command
     {
         $this->call('migrate', [
             '--path' => 'vendor/comocode/laravel-ab/migrations/',
-            '--force' => $this->hasOption('force') ? true : false
+            '--force' => $this->hasOption('force') ? true : false,
         ]);
 
-        $this->info("AB tables created successfully");
-
+        $this->info('AB tables created successfully');
     }
 }

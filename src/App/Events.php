@@ -1,16 +1,20 @@
-<?php namespace ComoCode\LaravelAb\App;
+<?php
 
-class Events extends \Eloquent {
+namespace ComoCode\LaravelAb\App;
 
+class Events extends \Eloquent
+{
     protected $table = 'ab_events';
-	protected $fillable = ['name','value'];
+    protected $fillable = ['name', 'value'];
     protected $touches = array('instance');
 
-    public function experiment(){
+    public function experiment()
+    {
         return $this->belongsTo('ComoCode\LaravelAb\App\Experiment');
     }
 
-    public function instance(){
+    public function instance()
+    {
         return $this->belongsTo('ComoCode\LaravelAb\App\Instance');
     }
 }
