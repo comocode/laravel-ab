@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 composer self-update
-composer create-project laravel/laravel --prefer-dist build/laravel
+composer create-project laravel/laravel:5.2.31 --prefer-dist build/laravel
 mkdir -p ./build/laravel/vendor/comocode
 ln -s `pwd` ./build/laravel/vendor/comocode/laravel-ab
 cd ./build/laravel
