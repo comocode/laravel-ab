@@ -9,7 +9,7 @@ touch storage/database.sqlite
 cp ./vendor/comocode/laravel-ab/tests/source/laravel/app.php ./config/app.php
 cp ./vendor/comocode/laravel-ab/tests/source/laravel/database.php ./config/database.php
 cp ./vendor/comocode/laravel-ab/tests/source/laravel/routes.php ./App/Http/routes.php
-sed -e 's/"app\/"/"app\/","ComoCode\\\\LaravelAb\\\\": "vendor\/comocode\/laravel-ab\/src"/' composer.json > temp.json && mv temp.json composer.json
+sed -e 's/"app\/"/"App\/","ComoCode\\\\LaravelAb\\\\": "vendor\/comocode\/laravel-ab\/src"/' composer.json > temp.json && mv temp.json composer.json
 sed -e s/\)\;/\)/g ./vendor/composer/autoload_classmap.php > temp.php && mv temp.php ./vendor/composer/autoload_classmap.php
 cat ./vendor/comocode/laravel-ab/tests/source/laravel/autoload.php >> ./vendor/composer/autoload_classmap.php
 composer dump-autoload
