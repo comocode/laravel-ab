@@ -22,29 +22,45 @@ class AbRollback extends Command
 
     /**
      * Create a new command instance.
+     *
+     * @return void
      */
     public function __construct()
     {
         parent::__construct();
+        
         include_once realpath(__DIR__.'/../../../../migrations/2015_08_15_000001_create_ab_tables.php');
+        include_once realpath(__DIR__.'/../../../../migrations/2016_10_12_000001_fix_ab_column_types.php');
     }
 
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
     public function handle()
     {
         if ($this->confirm('Do you wish to continue? [y|N]')) {
-            $migration = new \CreateAbTables();
-            if ($migration->down()) {
-                $this->info('AB tables destroyed successfully');
+            
+            // TODO: create a more efficient way to handle down migrations
+            
+            $fixMigration = new \FixAbColumnTypes();
+            if ($fixMigration->down()) {
+                $this->info("Column types reverted successfully");
             } else {
-                $this->error('Could not delete AB tables');
+                $this->error("Could not revert column types");
             }
-        } else {
-            $this->error('user exited, nothing done');
+            
+            $create_migration = new \CreateAbTables();
+            if ($create_migration->down()) {
+                $this->info("AB tables destroyed successfully");
+            } else {
+                $this->error("Could not delete AB tables");
+            }
+        }
+        else {
+            $this->error("user exited, nothing done");
         }
     }
 }
+
