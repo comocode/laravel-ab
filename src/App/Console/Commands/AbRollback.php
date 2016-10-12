@@ -44,8 +44,8 @@ class AbRollback extends Command
             
             // TODO: create a more efficient way to handle down migrations
             
-            $fixMigration = new \FixAbColumnTypes();
-            if ($fixMigration->down()) {
+            $fix_migration = new \FixAbColumnTypes();
+            if ($fix_migration->down()) {
                 $this->info("Column types reverted successfully");
             } else {
                 $this->error("Could not revert column types");
@@ -57,8 +57,7 @@ class AbRollback extends Command
             } else {
                 $this->error("Could not delete AB tables");
             }
-        }
-        else {
+        } else {
             $this->error("user exited, nothing done");
         }
     }
