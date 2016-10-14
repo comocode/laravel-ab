@@ -53,7 +53,7 @@ class CreateAbTables extends Migration {
     /**
      * Reverse the migrations.
      *
-     * @return void
+     * @return boolean
      */
     public function down()
     {
