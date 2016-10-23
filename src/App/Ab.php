@@ -66,7 +66,7 @@ class Ab
      *                                 Load initial session variables to store or track
      *                                 Such as variables you want to track being passed into the template.
      */
-    public function setup(array $session_varfiables = array())
+    public function setup(array $session_variables = array())
     {
         foreach ($session_variables as $key => $value) {
             $experiment = new self();
