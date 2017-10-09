@@ -53,7 +53,7 @@ to view your experiment results, use the export command to see statistics
 Creating Experiments
 ==========
 
-There are a few PHP A/B and other Laravel packagages available.
+There are a few PHP A/B and other Laravel packages available.
 
 This project focuses on providing the ability to test multiple experiments
 including nested experiments with a very easy to use blade interface.
